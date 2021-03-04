@@ -3,7 +3,7 @@ import { ReturnUserService } from "../utils/types";
 import User from "../models/User";
 
 class UserService {
-    public static async saveUser(
+    public static async createUser(
         email: string,
         oauthId: string,
         username: string

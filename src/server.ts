@@ -6,6 +6,7 @@ import passport from "passport";
 
 import config from "./config";
 import indexRouter from "./routes/index.routes";
+import googleRouter from "./routes/oauth/google.routes";
 
 //strategys
 import "./middlewares/strategies/googleStrategy";
@@ -13,9 +14,11 @@ import "./middlewares/strategies/googleStrategy";
 class Server {
     private _app: Application;
     private _indexRouter: IRouter;
+    private _googleRouter: IRouter;
     constructor() {
         this._app = express();
         this._indexRouter = indexRouter;
+        this._googleRouter = googleRouter;
         this.initDatabase();
         this.initConfig();
         this.initRoutes();
@@ -45,7 +48,8 @@ class Server {
         this._app.use(passport.session());
     }
     private initRoutes() {
-        this._app.use(this._indexRouter);
+        this._app.use("/", this._indexRouter);
+        this._app.use("/google", this._googleRouter);
     }
 
     public run(): void {

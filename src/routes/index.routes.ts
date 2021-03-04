@@ -15,6 +15,7 @@ class IndexRouter {
     private initRoutes() {
         this._router.get("/", IndexController.Index);
         this._router.get("/about", IndexController.About);
+        this._router.get("/protected", IndexController.Protected);
     }
 }
 

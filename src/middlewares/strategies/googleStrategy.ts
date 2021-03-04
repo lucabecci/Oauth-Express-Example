@@ -14,16 +14,17 @@ class GoogleStrategySetup {
             done(null, user);
         });
 
-        passport.deserializeUser((user, done) => {
-            console.log("deserialized");
-            console.log(user);
-            done(null, undefined);
+        passport.deserializeUser((user: any, done) => {
+            done(null, user);
         });
 
         passport.use(
-            new Strategy(this.GoogleOptions, (profile: any, done: any) => {
-                return done(null, profile);
-            })
+            new Strategy(
+                this.GoogleOptions,
+                (_accessToken, _refreshToken, profile: any, done: any) => {
+                    return done(null, profile);
+                }
+            )
         );
     }
 }

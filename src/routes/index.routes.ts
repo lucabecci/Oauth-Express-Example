@@ -1,6 +1,6 @@
-import { Router, IRouter, Request, Response } from "express";
+import { Router, IRouter } from "express";
 
-//User Model
+import IndexController from "../controllers/index.controller";
 class IndexRouter {
     private _router: IRouter;
     constructor() {
@@ -13,17 +13,8 @@ class IndexRouter {
     }
 
     private initRoutes() {
-        this._router.get("/", (_: Request, res: Response) => {
-            res.status(200).json({
-                message: "Hello",
-            });
-        });
-        this._router.get("/about", (_: Request, res: Response) => {
-            res.status(200).json({
-                message:
-                    "This is a simple REST API where you can see all oauths with passpot",
-            });
-        });
+        this._router.get("/", IndexController.Index);
+        this._router.get("/about", IndexController.About);
     }
 }
 

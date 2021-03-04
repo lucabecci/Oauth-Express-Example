@@ -19,6 +19,17 @@ abstract class IndexController {
             message: "Protected",
         });
     }
+    public static Logout(req: Request, res: Response): void {
+        req.session = null;
+        req.logOut();
+        res.redirect("/");
+    }
+
+    public static Failed(_req: Request, res: Response): void {
+        res.status(400).json({
+            message: "Failed to login!",
+        });
+    }
 }
 
 export default IndexController;

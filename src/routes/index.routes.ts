@@ -1,4 +1,5 @@
 import { Router, IRouter } from "express";
+import isLogged from "../middlewares/isLogged";
 
 import IndexController from "../controllers/index.controller";
 class IndexRouter {
@@ -15,7 +16,13 @@ class IndexRouter {
     private initRoutes() {
         this._router.get("/", IndexController.Index);
         this._router.get("/about", IndexController.About);
-        this._router.get("/protected", IndexController.Protected);
+        this._router.get(
+            "/protected",
+            isLogged.logged,
+            IndexController.Protected
+        );
+        this._router.get("/failed", IndexController.Failed);
+        this._router.get("/logout", IndexController.Logout);
     }
 }
 

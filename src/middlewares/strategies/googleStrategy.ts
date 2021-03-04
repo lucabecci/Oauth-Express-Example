@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import passport from "passport";
-import { Strategy, StrategyOptions } from "passport-google-oauth20";
+import { Profile, Strategy, StrategyOptions } from "passport-google-oauth20";
 import config from "../../config";
 
 class GoogleStrategySetup {
@@ -21,8 +21,14 @@ class GoogleStrategySetup {
         passport.use(
             new Strategy(
                 this.GoogleOptions,
-                (_accessToken, _refreshToken, profile: any, done: any) => {
-                    return done(null, profile);
+                (_accessToken, _refreshToken, profile: Profile, done: any) => {
+                    const user = {
+                        username: profile.displayName.replace(/\s/g, ""),
+                        email: profile.emails?.[0].value,
+                        oauthId: profile.id,
+                    };
+                    console.log(user);
+                    return done(null, user);
                 }
             )
         );

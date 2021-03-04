@@ -1,6 +1,6 @@
 import { Router, IRouter } from "express";
 import passport from "passport";
-import IndexController from "../../controllers/index.controller";
+import OauthController from "../../controllers/oauth.controller";
 
 //google router
 class GoogleRouter {
@@ -24,7 +24,7 @@ class GoogleRouter {
         this._router.get(
             "/callback",
             passport.authenticate("google", { failureRedirect: "/failed" }),
-            IndexController.Protected
+            OauthController.Redirect
         );
     }
 }

@@ -10,6 +10,7 @@
     "pretty": "npx prettier --write src/*"
   },
   "dependencies": {
+    "@types/passport-facebook": "^2.1.10",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -17,6 +18,7 @@
     "mongoose": "^5.11.18",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
     "passport-google-oauth": "^2.0.0",
     "passport-google-oauth20": "^2.0.0"
   },

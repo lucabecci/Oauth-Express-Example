@@ -7,6 +7,9 @@ import passport from "passport";
 import config from "./config";
 import indexRouter from "./routes/index.routes";
 
+//strategys
+import "./middlewares/strategies/googleStrategy";
+
 class Server {
     private _app: Application;
     private _indexRouter: IRouter;

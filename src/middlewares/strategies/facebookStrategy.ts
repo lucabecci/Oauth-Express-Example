@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import passport from "passport";
-import { Profile, Strategy, StrategyOptions } from "passport-google-oauth20";
+import { Profile, Strategy, StrategyOption } from "passport-facebook";
 import User from "../../models/User";
 import config from "../../config";
 
-class GoogleStrategySetup {
-    private static GoogleOptions: StrategyOptions = {
-        clientID: config.GOOGLE_CLIENT_ID,
-        clientSecret: config.GOOGLE_CLIENT_SECRET,
-        callbackURL: config.GOOGLE_CALLBACK,
+class FacebookStrategySetup {
+    private static FacebookOpts: StrategyOption = {
+        clientID: config.FACEBOOK_CLIENT_ID,
+        clientSecret: config.FACEBOOK_CLIENT_SECRET,
+        callbackURL: config.FACEBOOK_CALLBACK,
     };
     public static async Setup(): Promise<void> {
         passport.serializeUser((user, done) => {
@@ -21,7 +21,7 @@ class GoogleStrategySetup {
 
         passport.use(
             new Strategy(
-                this.GoogleOptions,
+                this.FacebookOpts,
                 async (
                     _accessToken,
                     _refreshToken,
@@ -30,7 +30,9 @@ class GoogleStrategySetup {
                 ) => {
                     const user = {
                         username: profile.displayName.replace(/\s/g, ""),
-                        email: profile.emails?.[0].value,
+                        email:
+                            profile.displayName.replace(/\s/g, "") +
+                            "@email.com",
                         oauthId: profile.id,
                         provider: profile.provider,
                     };
@@ -49,4 +51,4 @@ class GoogleStrategySetup {
     }
 }
 
-GoogleStrategySetup.Setup();
+FacebookStrategySetup.Setup();

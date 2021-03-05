@@ -7,24 +7,31 @@ import passport from "passport";
 import config from "./config";
 import indexRouter from "./routes/index.routes";
 import googleRouter from "./routes/oauth/google.routes";
+import facebookRouter from "./routes/oauth/facebook.routes";
 
 //strategys
 import "./middlewares/strategies/googleStrategy";
+import "./middlewares/strategies/facebookStrategy";
+import Database from "./database/database";
 
 class Server {
     private _app: Application;
+    private _database: Database;
     private _indexRouter: IRouter;
     private _googleRouter: IRouter;
+    private _facebookRouter: IRouter;
     constructor() {
         this._app = express();
+        this._database = new Database();
         this._indexRouter = indexRouter;
         this._googleRouter = googleRouter;
+        this._facebookRouter = facebookRouter;
         this.initDatabase();
         this.initConfig();
         this.initRoutes();
     }
     private initDatabase() {
-        console.log("database");
+        this._database.connection();
     }
     private initConfig() {
         this._app.use(
@@ -49,7 +56,8 @@ class Server {
     }
     private initRoutes() {
         this._app.use("/", this._indexRouter);
-        this._app.use("/google", this._googleRouter);
+        this._app.use("/auth/google", this._googleRouter);
+        this._app.use("/auth/facebook", this._facebookRouter);
     }
 
     public run(): void {

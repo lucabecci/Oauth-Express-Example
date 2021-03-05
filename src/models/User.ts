@@ -21,6 +21,7 @@ class UserSchema {
                 trim: true,
                 unique: true,
             },
+            provider: { type: String, required: true },
         };
         this._userSchema = new Schema(this._schemaDefinition, {
             timestamps: true,

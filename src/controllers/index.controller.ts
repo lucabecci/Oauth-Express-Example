@@ -13,8 +13,7 @@ abstract class IndexController {
         });
     }
 
-    public static Protected(req: Request, res: Response): void {
-        console.log(req.user);
+    public static Protected(_req: Request, res: Response): void {
         res.status(200).json({
             message: "Protected",
         });

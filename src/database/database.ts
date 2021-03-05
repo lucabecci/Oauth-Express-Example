@@ -1,5 +1,5 @@
 import mongoose, { ConnectOptions, Mongoose } from "mongoose";
-import config from "src/config";
+import config from "../config";
 
 class Database {
     private _mongoose: Mongoose;

@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
-
 abstract class IndexController {
     public static Index(_req: Request, res: Response): void {
         res.status(200).json({
@@ -13,9 +14,9 @@ abstract class IndexController {
         });
     }
 
-    public static Protected(_req: Request, res: Response): void {
+    public static Protected(req: any, res: Response): void {
         res.status(200).json({
-            message: "Protected",
+            message: `Hello ${req.user.username}`,
         });
     }
     public static Logout(req: Request, res: Response): void {

@@ -8,10 +8,12 @@ import config from "./config";
 import indexRouter from "./routes/index.routes";
 import googleRouter from "./routes/oauth/google.routes";
 import facebookRouter from "./routes/oauth/facebook.routes";
+import githubRouter from "./routes/oauth/github.routes";
 
 //strategys
 import "./middlewares/strategies/googleStrategy";
 import "./middlewares/strategies/facebookStrategy";
+import "./middlewares/strategies/githubStrategy";
 import Database from "./database/database";
 
 class Server {
@@ -20,12 +22,14 @@ class Server {
     private _indexRouter: IRouter;
     private _googleRouter: IRouter;
     private _facebookRouter: IRouter;
+    private _githubRouter: IRouter;
     constructor() {
         this._app = express();
         this._database = new Database();
         this._indexRouter = indexRouter;
         this._googleRouter = googleRouter;
         this._facebookRouter = facebookRouter;
+        this._githubRouter = githubRouter;
         this.initDatabase();
         this.initConfig();
         this.initRoutes();
@@ -58,6 +62,7 @@ class Server {
         this._app.use("/", this._indexRouter);
         this._app.use("/auth/google", this._googleRouter);
         this._app.use("/auth/facebook", this._facebookRouter);
+        this._app.use("/auth/github", this._githubRouter);
     }
 
     public run(): void {
